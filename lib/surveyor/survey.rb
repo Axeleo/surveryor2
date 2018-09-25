@@ -15,5 +15,13 @@ module Surveyor
     def add_response(response)
       @responses.push(response)
     end
+
+    def find_user(email)
+      @responses.find { |res| res.email == email }
+    end
+
+    def has_user_responded?(email)
+      !find_user(email).nil?
+    end
   end
 end
