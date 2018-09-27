@@ -8,11 +8,9 @@ module Surveyor
     end
 
     def add_answer(answer)
-      if answer.question.valid_answer?(answer.value)
-        @answers.push(answer)
-      else
-        raise "Answer's value is not valid"
-      end
+      raise "Answer's value is not valid" unless answer.question.valid_answer?(answer.value)
+
+      @answers.push(answer)
     end
   end
 end

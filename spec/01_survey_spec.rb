@@ -31,10 +31,57 @@ RSpec.describe Surveyor::Survey do
 
   it "returns true if a user has reponded" do
     subject.add_response(response)
-    expect(subject.has_user_responded?(response.email)).to be true
+    expect(subject.user_responded?(response.email)).to be true
   end
 
   it "returns false if a user has not responded" do
-    expect(subject.has_user_responded?("rick@test.com")).not_to be true
+    expect(subject.user_responded?("rick@test.com")).not_to be true
+  end
+
+  context "question breakdown" do
+    # I have defined these with let beacuse I anticipate having to write more tests, what other cases do I try?
+    let(:question_1) { Surveyor::RatingQuestion.new(title: "First sample question") }
+
+    let(:response_1) { Surveyor::Response.new(email: "emma@test.com") }
+    let(:response_2) { Surveyor::Response.new(email: "heather@test.com") }
+    let(:response_3) { Surveyor::Response.new(email: "riley@test.com") }
+    let(:response_4) { Surveyor::Response.new(email: "cam@test.com") }
+    let(:response_5) { Surveyor::Response.new(email: "steve@test.com") }
+    let(:response_6) { Surveyor::Response.new(email: "robert@test.com") }
+    let(:response_7) { Surveyor::Response.new(email: "lily@test.com") }
+
+    let(:answer_1) { Surveyor::Answer.new(question: question_1, value: 1) }
+    let(:answer_2) { Surveyor::Answer.new(question: question_1, value: 2) }
+    let(:answer_3) { Surveyor::Answer.new(question: question_1, value: 3) }
+    let(:answer_4) { Surveyor::Answer.new(question: question_1, value: 4) }
+    let(:answer_5) { Surveyor::Answer.new(question: question_1, value: 5) }
+    before do
+      # feels very reptitive is there a better way? did I make too many?
+      response_1.add_answer(answer_1)
+      response_2.add_answer(answer_2)
+      response_3.add_answer(answer_2)
+      response_4.add_answer(answer_4)
+      response_5.add_answer(answer_5)
+      response_6.add_answer(answer_4)
+      response_7.add_answer(answer_5)
+
+      subject.add_response(response_1)
+      subject.add_response(response_2)
+      subject.add_response(response_3)
+      subject.add_response(response_4)
+      subject.add_response(response_5)
+      subject.add_response(response_6)
+      subject.add_response(response_7)
+    end
+
+    it 'returns a correct breakdown' do
+      expect(subject.ratings(question_1)).to eq(
+        1 => 1,
+        2 => 2,
+        3 => 0,
+        4 => 2,
+        5 => 2,
+      )
+    end
   end
 end

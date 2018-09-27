@@ -15,7 +15,7 @@ RSpec.describe Surveyor::Response do
       value: 5,
     )
     subject.add_answer(answer_to_ratings_question)
-    expect(subject.answers.count).to eq 1
+    expect(subject.answers).to include answer_to_ratings_question
   end
 
   it "rejects an invalid answer from a rating question" do
