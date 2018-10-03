@@ -75,7 +75,7 @@ RSpec.describe Surveyor::Survey do
     end
 
     it 'returns a correct breakdown' do
-      expect(subject.ratings(question_1)).to eq(
+      expect(subject.answer_breakdown(question_1)).to eq(
         1 => 1,
         2 => 2,
         3 => 0,

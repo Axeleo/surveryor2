@@ -6,5 +6,9 @@ module Surveyor
       @question = question
       @value = value
     end
+
+    def valid?
+      question.valid_answer?(value)
+    end
   end
 end
