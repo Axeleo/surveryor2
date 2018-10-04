@@ -5,12 +5,12 @@ RSpec.describe Surveyor::Email do
     expect(valid_email).to be_valid
   end
 
-  it " can recognise a valid email adress with a subdomain" do
+  it "is valid an email address with a subdomain" do
     subdomain_email = Surveyor::Email.new(address: "user@dom.subdom")
     expect(subdomain_email). to be_valid
   end
 
-  it "rejects an invalid email address" do
+  it "is invalid for a address which is not an email address" do
     invalid_email = Surveyor::Email.new(address: "thisthenthat.com")
     expect(invalid_email).not_to be_valid
   end

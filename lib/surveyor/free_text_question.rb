@@ -1,12 +1,13 @@
 module Surveyor
   class FreeTextQuestion < Question
+    MAX_CHAR_LIMIT = 50_000
+
     def initialize(title:)
       @title = title
-      @max_char_limit = 50_000
     end
 
     def valid_answer?(answer)
-      answer.is_a?(String) && answer.length < @max_char_limit
+      answer.is_a?(String) && answer.length < MAX_CHAR_LIMIT
     end
   end
 end

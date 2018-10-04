@@ -1,9 +1,10 @@
 require 'spec_helper'
 RSpec.describe Surveyor::FreeTextQuestion do
-  subject { described_class.new(title: "Hello World") }
+  QUESTION_TITLE = "Hello World".freeze
+  subject { described_class.new(title: QUESTION_TITLE) }
 
   it 'has a title' do
-    expect(subject.title).to eq("Hello World")
+    expect(subject.title).to eq(QUESTION_TITLE)
   end
 
   context 'valid_answer?' do

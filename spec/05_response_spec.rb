@@ -2,13 +2,14 @@ require 'spec_helper'
 require 'pry'
 
 RSpec.describe Surveyor::Response do
-  subject { described_class.new(email: "test@test.com") }
+  TEST_EMAIL = "user@domain.com".freeze
+  subject { described_class.new(email: TEST_EMAIL) }
 
   it 'has a email' do
-    expect(subject.email).to eq("test@test.com")
+    expect(subject.email).to eq(TEST_EMAIL)
   end
 
-  it 'accepts a valid answer from a rating question' do
+  it 'returns true for a valid answer from a rating question' do
     rating_question = Surveyor::RatingQuestion.new(title: "sample ratings question")
     answer_to_ratings_question = Surveyor::Answer.new(
       question: rating_question,
@@ -18,7 +19,7 @@ RSpec.describe Surveyor::Response do
     expect(subject.answers).to include answer_to_ratings_question
   end
 
-  it "rejects an invalid answer from a rating question" do
+  it "returns false for a invalid answer from a rating question" do
     rating_question = Surveyor::RatingQuestion.new(title: "sample ratings question")
     answer_to_ratings_question = Surveyor::Answer.new(
       question: rating_question,
