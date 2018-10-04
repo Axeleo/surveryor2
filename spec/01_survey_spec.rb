@@ -2,7 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Surveyor::Survey do
   subject { described_class.new(name: "Engagement Survey") }
-  let(:response) { Surveyor::Response.new(email: "tim@test.com") }
+  let(:email) { Surveyor::Email.new(address: "tim@test.com") }
+  let(:response) { Surveyor::Response.new(email: email) }
 
   it "has a name" do
     expect(subject.name).to eq("Engagement Survey")
@@ -39,7 +40,6 @@ RSpec.describe Surveyor::Survey do
   end
 
   context "question breakdown" do
-    # I have defined these with let beacuse I anticipate having to write more tests, what other cases do I try?
     let(:question_1) { Surveyor::RatingQuestion.new(title: "First sample question") }
 
     let(:response_1) { Surveyor::Response.new(email: "emma@test.com") }
@@ -55,8 +55,8 @@ RSpec.describe Surveyor::Survey do
     let(:answer_3) { Surveyor::Answer.new(question: question_1, value: 3) }
     let(:answer_4) { Surveyor::Answer.new(question: question_1, value: 4) }
     let(:answer_5) { Surveyor::Answer.new(question: question_1, value: 5) }
+
     before do
-      # feels very reptitive is there a better way? did I make too many?
       response_1.add_answer(answer_1)
       response_2.add_answer(answer_2)
       response_3.add_answer(answer_2)

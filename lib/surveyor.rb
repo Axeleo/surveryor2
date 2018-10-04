@@ -4,6 +4,7 @@ require "surveyor/rating_question"
 require "surveyor/survey"
 require "surveyor/response"
 require "surveyor/answer"
+require "surveyor/email"
 require "surveyor/version"
 
 module Surveyor
