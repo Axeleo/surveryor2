@@ -3,7 +3,7 @@ require 'pry'
 
 RSpec.describe Surveyor::Answer do
   TEST_VALUE = 3
-  let(:question) { double(Surveyor::Question, title: "Sample question") }
+  let(:question) { Surveyor::Question.new(title: "Sample question") }
   subject(:answer) { Surveyor::Answer.new(question: question, value: TEST_VALUE) }
 
   it "has a question" do
